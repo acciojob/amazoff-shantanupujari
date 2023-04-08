@@ -47,12 +47,18 @@ public class Repository {
     }
 
     public  Integer getOrderCountByPartnerId(String id){
-        Integer count =0;
-        if (totalOrdersToPartnerDB.containsKey(id)){
-          count =totalOrdersToPartnerDB.get(id).size();
-        }
-        return count;
-   }
+//        Integer count =0;
+//        if (totalOrdersToPartnerDB.containsKey(id)){
+//          count =totalOrdersToPartnerDB.get(id).size();
+//        }
+//        return count;
+        int orderCount = 0;
+
+        if(totalOrdersToPartnerDB.containsKey(id))
+            orderCount = totalOrdersToPartnerDB.get(id).size();
+
+        return orderCount;
+  }
 
     public List<String> getOrdersByPartnerId(String id){
     HashSet <String> ans=null;
@@ -67,11 +73,21 @@ public class Repository {
     }
 
     public  Integer getCountOfUnassignedOrders(){
-    Integer count =0;
-    int total= orderDB.size();
-    int assignedo= orderToPartnerDB.size();
-    count =total-assignedo;
-    return count;
+//    Integer count =0;
+//    int total= orderDB.size();
+//    int assignedo= orderToPartnerDB.size();
+//    count =total-assignedo;
+//    return count;
+        Integer countOfOrders = 0;
+
+        List<String> list = new ArrayList<>(orderDB.keySet());
+
+        for(String st : list){
+            if(!orderToPartnerDB.containsKey(st))
+                countOfOrders += 1;
+        }
+
+        return countOfOrders;
     }
 
     public  Integer getOrderLeftAfterGivenTimeByPartnerId(String time,String partnerId){
